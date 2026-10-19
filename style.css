@@ -1,0 +1,269 @@
+/*  Fundo aurora  */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #18181b;
+}
+
+.aurora-base {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top left, #38bdf8, #fb7185, #a3e635);
+  opacity: 0.2;
+  filter: blur(120px);
+}
+
+.aurora-blob {
+  position: absolute;
+  top: -10%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle farthest-side, rgba(255, 0, 182, 0.15), rgba(255, 255, 255, 0));
+  opacity: 0;
+  animation:
+    auroraEntrada 0.8s ease-in-out forwards,
+    auroraFlutuar 14s ease-in-out infinite alternate;
+}
+.aurora-blob-1 { left: -20%;  animation-delay: 0.2s, 0s; }
+.aurora-blob-2 { right: -20%; animation-delay: 0.5s, 0s; }
+
+@keyframes auroraEntrada {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes auroraFlutuar {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(40px, 60px); }
+}
+
+/* Gato*/
+.gato {
+  display: block;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: gatoEntrada 0.9s ease-in-out 0.8s forwards;
+}
+
+@keyframes gatoEntrada {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Livro */
+.livro {
+  position: relative;
+  width: min(92vw, 420px);
+  height: min(75vh, 620px);
+  margin: 20px auto;
+  border-radius: 10px;
+  background: whitesmoke;
+  box-shadow: 1px 1px 12px #000;
+  perspective: 2000px;
+}
+
+.folha {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background: rgb(210, 207, 207);
+  transition: transform 0.4s ease;
+  text-align: center;
+}
+
+.folha .fotos {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.folha img {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.folha h1 { color: #222; font-size: 20px; margin: 4px 0; }
+.folha p  { color: #333; font-size: 15px; font-weight: normal; line-height: 1.5; text-align: left; }
+
+/* Capa com foto: abre com clique (hover não funciona no celular) */
+.capa {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #8b1e3f; /* aparece só enquanto a foto carrega */
+  cursor: pointer;
+  transform-origin: left;
+  box-shadow: 1px 1px 12px #000;
+  transition: transform 0.8s, opacity 0.8s;
+}
+
+.capa img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* mude para "center top" se cortar rostos */
+  border-radius: 0;
+}
+
+/* Faixa escura embaixo para o texto ficar legível sobre a foto */
+.capa-texto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 16px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+  text-align: center;
+}
+.capa-texto h2 { color: #fff; margin: 0 0 6px; font-size: 24px; }
+.capa-texto p  { color: #ddd; margin: 0; font-size: 14px; font-weight: normal; }
+
+.livro.aberto .capa {
+  transform: rotateY(-120deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.nav button {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.nav button:disabled { opacity: 0.4; cursor: default; }
+
+#conteudo { display: none; }
+
+/* botão sim */ 
+.btn-sim {
+  min-width: 120px;
+
+  position: relative;
+  cursor: pointer;
+
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 7px;
+
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(71, 81, 92, 1) 0%,
+    rgba(11, 21, 30, 1) 45%
+  );
+
+  color: rgb(255, 255, 255);
+
+  transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.btn-sim::before {
+  content: "";
+  width: 70%;
+  height: 1px;
+
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0.2;
+
+  transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.btn-sim:hover {
+  color: rgb(255, 255, 255, 1);
+  transform: scale(1.1) translateY(-3px);
+}
+
+.btn-sim:hover::before {
+  opacity: 1;
+}
+
+
+/* botão não */ 
+.btn-nao {
+  min-width: 120px;
+
+  position: relative;
+  cursor: pointer;
+
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 7px;
+
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(71, 81, 92, 1) 0%,
+    rgba(11, 21, 30, 1) 45%
+  );
+
+  color: rgba(255, 255, 255, 0.991);
+
+  transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.btn-nao::before {
+  content: "";
+  width: 70%;
+  height: 1px;
+
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0.2;
+
+  transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.btn-nao:hover {
+  color: rgb(255, 255, 255, 1);
+  transform: scale(1.1) translateY(-3px);
+}
+
+.btn-nao:hover::before {
+  opacity: 1;
+}
+
